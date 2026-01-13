@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt_br">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Invista-Me!</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'investimentos' %}">Invista-Me!</a>
+    
+    <!--Se não estiver nas páginas de login e cadastro -> mostar botões-->
+    {% if request.resolver_match.url_name not in 'login novo_usuario'%}
+        <div>
+            {% if user.is_authenticated %} <!--Se o usuario for autenticado,então faça isso-->
+                <span class="mr-2">Olá, {{ user.username }}</span>
+
+                <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button class="btn btn-outline-danger btn-sm">Sair</button>
+                </form>
+            {% else %}
+                <a class="btn btn-outline-primary btn-sm" href="{% url 'login' %}">Entrar</a>
+                <a class="btn btn-outline-success btn-sm" href="{% url 'novo_usuario' %}">Cadastrar</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</nav>
+    {% block conteudo %}
+    
+    {% endblock %}
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
